@@ -42,134 +42,23 @@
 
 	<script type="text/javascript">
 
-		//global declarations
-		var i = 0; //question array iterator.
-
-		//your Trivia class object
-		var newTrivia = Object.create(trivia);
-		newTrivia.initializeTriviaQuestions();
-
-		var q = $("#q");
-		var a0 = $("#a0");
-		var a1 = $("#a1");
-		var a2 = $("#a2");
-		var a3 = $("#a3");
-		var ac = $("#ac");
+		//I don't understand why I can't declare these on app.js
+		q = $("#q");
+		a0 = $("#a0");
+		a1 = $("#a1");
+		a2 = $("#a2");
+		a3 = $("#a3");
+		ac = $("#ac");
+		acimg = $("#acimg");
 
 		a0.attr("data-index", 0);
 		a1.attr("data-index", 1);
 		a2.attr("data-index", 2);
 		a3.attr("data-index", 3);
 
-
-
-		//global game functions
-		function iterate() {
-			console.log("iterate");
-			i++;
-
-			if (i < newTrivia.triviaArray.length) {
-				seedQuestions(i);
-				showQuestions();
-				hideAnswer();
-			}
-			else {
-				hideAnswer();
-				showScore();
-				$("#start").html("try again");
-				showStart();
-			}
-
-		}
-
-		function score() {
-
-			if ( $(this).data('index') == newTrivia.triviaArray[i].correctIndex ) {
-				newTrivia.qCorrect++;
-				console.log("right");
-			}
-			else {
-				newTrivia.qIncorrect++;
-				console.log("wrong");	
-			}
-
-			hideQuestions();
-			showAnswer();
-
-			setTimeout(iterate, 5 * 1000);
-			
-		}
-
-		function timeup() {
-
-			newTrivia.qUnanswered++;
-			hideQuestions();
-			showAnswer();
-
-			setTimeout(iterate, 5 * 1000);
-			
-		}
-
-
-		function initializePage() {
-
-			i = 0;
-			seedQuestions(i);
-
-			newTrivia.initializeTriviaVars();
-
-			showQuestions();
-			hideAnswer();
-
-			hideStart();
-			hideScore();
-		}
-
-		function seedQuestions(iterator) {
-			q.html(newTrivia.triviaArray[iterator].question);
-			a0.html(newTrivia.triviaArray[iterator].answers[0]);
-			a1.html(newTrivia.triviaArray[iterator].answers[1]);
-			a2.html(newTrivia.triviaArray[iterator].answers[2]);
-			a3.html(newTrivia.triviaArray[iterator].answers[3]);
-			ac.html(newTrivia.triviaArray[iterator].answers[newTrivia.triviaArray[iterator].correctIndex]);
-
-			countdownTimer.reset();
-		}
-
-		function showScore() {
-			$("#scoreCorrect").html("correct: " + newTrivia.qCorrect);
-			$("#scoreIncorrect").html("Incorrect: " + newTrivia.qIncorrect);
-			$("#scoreUnanswered").html("Unanswered: " + newTrivia.qUnanswered);
-			$("#score").show();
-		}
-
-		function hideScore() {
-			$("#score").hide();
-		}
-
-		window.onload = function(){
-    		// Click events are done for you:
-    		$('.answer').click(score);
-    		$('#start').click(initializePage);
-		};
-
-		function showQuestions() { 
-			$("#question").show(); 
-			countdownTimer.start();
-		}
-
-		function hideQuestions() { 
-			$("#question").hide();
-			countdownTimer.stop(); 
-		}
-
-		//just for readability
-		
-
-		function hideAnswer() { $("#answer").hide(); }
-		function showAnswer() { $("#answer").show(); }
-		function hideStart() { $("#start").hide(); }
-		function showStart() { $("#start").show(); }
+		//controls the game
+   		$('.answer').click(score);
+   		$('#start').click(initializePage);
 
 	</script>
 </body>

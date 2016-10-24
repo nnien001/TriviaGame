@@ -1,6 +1,6 @@
 console.log("javascript included");
 
-//globals
+//objects
 var trivia = {
 	triviaArray: [],
 	qCorrect: 0,
@@ -34,7 +34,8 @@ var trivia = {
 var triviaElement = {
 	question: "",
 	answers: [],
-	correctIndex : ""
+	correctIndex : "",
+	correctImg: ""
 };
 
 //coding for timer
@@ -87,3 +88,108 @@ var countdownTimer = {
 
 };
 
+/////
+var i = 0; //question array iterator.
+
+//your Trivia class object
+var newTrivia = Object.create(trivia);
+newTrivia.initializeTriviaQuestions();
+
+//div DOM vars
+var q, a0, a1, a2, a3, ac, acimg;
+
+//global game functions. Acts on your global vars
+function initializePage() {
+	i = 0;
+	seedQuestions(i);
+	newTrivia.initializeTriviaVars();
+
+	showQuestions();
+	hideAnswer();
+
+	hideStart();
+	hideScore();
+}
+
+function iterate() {
+	console.log("iterate");
+	i++;
+
+	if (i < newTrivia.triviaArray.length) {
+		seedQuestions(i);
+		showQuestions();
+		hideAnswer();
+	}
+	else { //endgame condition
+		hideAnswer();
+		showScore();
+		$("#start").html("try again");
+		showStart();
+	}
+
+}
+
+function score() {
+	if ( $(this).data('index') == newTrivia.triviaArray[i].correctIndex ) {
+		newTrivia.qCorrect++;
+		console.log("right");
+	}
+	else {
+		newTrivia.qIncorrect++;
+		console.log("wrong");	
+	}
+
+	hideQuestions();
+	showAnswer();
+
+	setTimeout(iterate, 5 * 1000);
+	
+}
+
+function timeup() {
+	newTrivia.qUnanswered++;
+	hideQuestions();
+	showAnswer();
+
+	setTimeout(iterate, 5 * 1000);
+	
+}
+
+function seedQuestions(iterator) {
+	q.html(newTrivia.triviaArray[iterator].question);
+	a0.html(newTrivia.triviaArray[iterator].answers[0]);
+	a1.html(newTrivia.triviaArray[iterator].answers[1]);
+	a2.html(newTrivia.triviaArray[iterator].answers[2]);
+	a3.html(newTrivia.triviaArray[iterator].answers[3]);
+	ac.html(newTrivia.triviaArray[iterator].answers[newTrivia.triviaArray[iterator].correctIndex]);
+	acimg.html(newTrivia.triviaArray[iterator].correctImg);
+
+	countdownTimer.reset();
+}
+
+function showScore() {
+	$("#scoreCorrect").html("correct: " + newTrivia.qCorrect);
+	$("#scoreIncorrect").html("Incorrect: " + newTrivia.qIncorrect);
+	$("#scoreUnanswered").html("Unanswered: " + newTrivia.qUnanswered);
+	$("#score").show();
+}
+
+function hideScore() {
+	$("#score").hide();
+}
+
+function showQuestions() { 
+	$("#question").show(); 
+	countdownTimer.start();
+}
+
+function hideQuestions() { 
+	$("#question").hide();
+	countdownTimer.stop(); 
+}
+
+//just for readability
+function hideAnswer() { $("#answer").hide(); }
+function showAnswer() { $("#answer").show(); }
+function hideStart() { $("#start").hide(); }
+function showStart() { $("#start").show(); }
