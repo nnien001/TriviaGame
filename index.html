@@ -93,7 +93,17 @@
 				console.log("wrong");	
 			}
 
-		hideQuestions();
+			hideQuestions();
+			showAnswer();
+
+			setTimeout(iterate, 5 * 1000);
+			
+		}
+
+		function timeup() {
+
+			newTrivia.qUnanswered++;
+			hideQuestions();
 			showAnswer();
 
 			setTimeout(iterate, 5 * 1000);

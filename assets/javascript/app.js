@@ -66,6 +66,7 @@ var countdownTimer = {
 
         if(countdownTimer.time == 0) {
         	countdownTimer.stop();
+        	timeup();
         }
 	},
 	    timeConverter: function(t){
