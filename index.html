@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<head>
+	<title>Trivia Quiz</title>
+
+	<link href="assets/css/reset.css" rel="stylesheet" type="text/css">
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+	<link href="assets/css/style.css" rel="stylesheet" type="text/css">
+	<script type="text/javascript" src="https://code.jquery.com/jquery-2.2.0.min.js"></script>
+	<script src="assets/javascript/app.js"></script>
+
+</head>
+<body>
+
+	<header>
+		<div class="page-header"><h1>Trivia</h1></div>
+	</header>
+
+	<div id="display"></div>
+			<div id="question">
+				<div id="q">q</div>
+				<div id="a0" class="answer"></div>
+				<div id="a1" class="answer"></div>
+				<div id="a2" class="answer"></div>
+				<div id="a3" class="answer"></div>
+			</div>
+			<div id="answer">
+				<div id="ac"></div>
+				<div id="acimg"></div>
+			</div>
+			<div id="score">
+				<div id="scoreCorrect"></div>
+				<div id="scoreIncorrect"></div>
+				<div id="scoreUnanswered"></div>
+			</div>
+			<button id="start">Start Game</button>
+				
+				
+<!-- 				<div id="a1 a"></div>
+ <div id="a2 a"></div>
+ <div id="a3 a"></div>
+  --> 
+
+	<script type="text/javascript">
+
+		//global declarations
+		var i = 0; //question array iterator.
+
+		//your Trivia class object
+		var newTrivia = Object.create(trivia);
+		newTrivia.initializeTriviaQuestions();
+
+		var q = $("#q");
+		var a0 = $("#a0");
+		var a1 = $("#a1");
+		var a2 = $("#a2");
+		var a3 = $("#a3");
+		var ac = $("#ac");
+
+		a0.attr("data-index", 0);
+		a1.attr("data-index", 1);
+		a2.attr("data-index", 2);
+		a3.attr("data-index", 3);
+
+
+
+		//global game functions
+		function iterate() {
+			console.log("iterate");
+			i++;
+
+			if (i < newTrivia.triviaArray.length) {
+				seedQuestions(i);
+				showQuestions();
+				hideAnswer();
+			}
+			else {
+				hideAnswer();
+				showScore();
+				$("#start").html("try again");
+				showStart();
+			}
+
+		}
+
+		function score() {
+
+			if ( $(this).data('index') == newTrivia.triviaArray[i].correctIndex ) {
+				newTrivia.qCorrect++;
+				console.log("right");
+			}
+			else {
+				newTrivia.qIncorrect++;
+				console.log("wrong");	
+			}
+
+		hideQuestions();
+			showAnswer();
+
+			setTimeout(iterate, 5 * 1000);
+			
+		}
+
+
+		function initializePage() {
+
+			i = 0;
+			seedQuestions(i);
+
+			newTrivia.initializeTriviaVars();
+
+			showQuestions();
+			hideAnswer();
+
+			hideStart();
+			hideScore();
+		}
+
+		function seedQuestions(iterator) {
+			q.html(newTrivia.triviaArray[iterator].question);
+			a0.html(newTrivia.triviaArray[iterator].answers[0]);
+			a1.html(newTrivia.triviaArray[iterator].answers[1]);
+			a2.html(newTrivia.triviaArray[iterator].answers[2]);
+			a3.html(newTrivia.triviaArray[iterator].answers[3]);
+			ac.html(newTrivia.triviaArray[iterator].answers[newTrivia.triviaArray[iterator].correctIndex]);
+
+			countdownTimer.reset();
+		}
+
+		function showScore() {
+			$("#scoreCorrect").html("correct: " + newTrivia.qCorrect);
+			$("#scoreIncorrect").html("Incorrect: " + newTrivia.qIncorrect);
+			$("#scoreUnanswered").html("Unanswered: " + newTrivia.qUnanswered);
+			$("#score").show();
+		}
+
+		function hideScore() {
+			$("#score").hide();
+		}
+
+		window.onload = function(){
+    		// Click events are done for you:
+    		$('.answer').click(score);
+    		$('#start').click(initializePage);
+		};
+
+		function showQuestions() { 
+			$("#question").show(); 
+			countdownTimer.start();
+		}
+
+		function hideQuestions() { 
+			$("#question").hide();
+			countdownTimer.stop(); 
+		}
+
+		//just for readability
+		
+
+		function hideAnswer() { $("#answer").hide(); }
+		function showAnswer() { $("#answer").show(); }
+		function hideStart() { $("#start").hide(); }
+		function showStart() { $("#start").show(); }
+
+	</script>
+</body>
