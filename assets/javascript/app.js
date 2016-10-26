@@ -11,16 +11,98 @@ var trivia = {
 		newQ.question = addQString;
 		newQ.answers = addAnswerArray;
 		newQ.correctIndex = addCorrectIndex;
-		newQ.addCorrectImg = addCorrectImg;
+		newQ.correctImg = addCorrectImg;
 		this.triviaArray.push(newQ);
 
 	},
 	//testing function
 	initializeTriviaQuestions() {
-		this.addTriviaQ("testQ1", ["herpaderp","2","3","4"], 0, "");
-		this.addTriviaQ("testQ2", [1,2,3,4], 1, "");
-		this.addTriviaQ("testQ3", [1,2,3,4], 2, "");
-		this.addTriviaQ("testQ4", [1,2,3,4], 3, "");
+
+		this.addTriviaQ("When was Hello Kitty born?", 
+			[
+				"Nov 1, 1974",
+				"Apr 1, 1991",
+				"Sep 9, 1999",
+				"Dec 31, 9999"
+			], 
+			0, "0.jpg");
+		this.addTriviaQ("Where does Hello Kitty live?", 
+			[
+				"Tokyo, Japan",
+				"San Francisco, California",
+				"London, England",
+				"In the hearts of children and women with disposable income"
+			], 
+			2, "1.jpg");		
+
+		this.addTriviaQ("What is Hello Kitty's real name?", 
+			[
+				"Hello Kitty is her real name",
+				"Hello Stacy",
+				"Mimmy",
+				"Kitty White"
+			], 
+			3, "2.jpg");
+		this.addTriviaQ("Hello Kitty has a boyfriend. What's his name?", 
+			[
+				"Dear John",
+				"Dear Daniel",
+				"Chump Charlie",
+				"Gorgeous George"
+			], 
+			1, "3.jpg");
+		this.addTriviaQ("Hello Kitty has a sister. What's her name?", 
+			[
+				"Goodbye Kitty",
+				"Margaret",
+				"Mimmy",
+				"Stacy"				
+			], 
+			2, "4.jpg");
+		this.addTriviaQ("Hello Kitty has a pet cat. What's it's name?", 
+			[
+				"Sugar",
+				"Margaret",
+				"Dog Daniel",
+				"Charmmy Kitty"
+			], 
+			3, "5.jpg");
+		this.addTriviaQ("Who is Hello Kitty's original designer?", 
+			[
+				"Yuko Shimizu",
+				"Shintaro Tsuji",
+				"Lewis Carol",
+				"Yuko Yamaguchi"
+			], 
+			0, "6.jpg");
+		this.addTriviaQ("How tall is Hello Kitty?", 
+			[	
+				"Five apples",
+				"Five feet",
+				"Five hands",
+				"Unknown"
+			], 
+			0, "7.jpg");
+
+		this.addTriviaQ("How much does Hello Kitty weight?", 
+			[
+				"Three stones",
+				"Three kilograms",
+				"Three apples",
+				"Unknown"
+			], 
+			2, "8.jpg");
+
+		this.addTriviaQ("In 2014, what announcement turned the Hello Kitty fandom upside-down?", 
+			[
+				"Hello Kitty is dating Badtz Maru",
+				"Sanrio sold Hello Kitty",
+				"She's not really a cat",		 
+				"Hello Kitty got a divorce"
+			], 
+			2, "9.jpg");
+
+
 	},
 
 	initializeTriviaVars() {
@@ -34,7 +116,7 @@ var trivia = {
 var triviaElement = {
 	question: "",
 	answers: [],
-	correctIndex : "",
+	correctIndex: "",
 	correctImg: ""
 };
 
@@ -49,7 +131,7 @@ var countdownTimer = {
 		countdownTimer.time = countdownTimer.maxTime;
 
         var currentTime = countdownTimer.timeConverter(countdownTimer.time);
-        $("#display").html(currentTime);
+        $("#timer").html(currentTime);
 
         console.log('reset!');
 	},
@@ -63,7 +145,7 @@ var countdownTimer = {
 		countdownTimer.time--;
         var currentTime = countdownTimer.timeConverter(countdownTimer.time);
 
-        $("#display").html(currentTime);
+        $("#timer").html(currentTime);
 
         if(countdownTimer.time == 0) {
         	countdownTimer.stop();
@@ -162,7 +244,7 @@ function seedQuestions(iterator) {
 	a2.html(newTrivia.triviaArray[iterator].answers[2]);
 	a3.html(newTrivia.triviaArray[iterator].answers[3]);
 	ac.html(newTrivia.triviaArray[iterator].answers[newTrivia.triviaArray[iterator].correctIndex]);
-	acimg.html(newTrivia.triviaArray[iterator].correctImg);
+	acimg.html("<img src= assets/images/" + newTrivia.triviaArray[iterator].correctImg + ">");
 
 	countdownTimer.reset();
 }

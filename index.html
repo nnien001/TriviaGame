@@ -1,6 +1,6 @@
 <!DOCTYPE html>
-<head>
-	<title>Trivia Quiz</title>
+<h0ead>
+	<title>Hello Kitty Trivia</title>
 
 	<link href="assets/css/reset.css" rel="stylesheet" type="text/css">
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
@@ -12,36 +12,59 @@
 <body>
 
 	<header>
-		<div class="page-header"><h1>Trivia</h1></div>
+		<div class="container">
+			<div class="page-header"><h1>Hello Kitty Trivia</h1></div>
+		</div>
 	</header>
 
-	<div id="display"></div>
+	<div class="container">
+		<div class="jumbotron">
+
+			<div class="row">
+				<div id="timer"></div>
+			</div>
+			
 			<div id="question">
-				<div id="q">q</div>
-				<div id="a0" class="answer"></div>
-				<div id="a1" class="answer"></div>
-				<div id="a2" class="answer"></div>
-				<div id="a3" class="answer"></div>
+				<h2><div id="q"></div></h2>
+				<button id="a0" class="btn btn-primary btn-block answer"></button>
+				<button id="a1" class="btn btn-primary btn-block answer"></button>
+				<button id="a2" class="btn btn-primary btn-block answer"></button>
+				<button id="a3" class="btn btn-primary btn-block answer"></button>
 			</div>
+
 			<div id="answer">
-				<div id="ac"></div>
-				<div id="acimg"></div>
+				<div class="row">
+					<div class="col-md-4">
+						<div id="acimg"></div>
+					</div>
+					
+					<div class="col-md-8">
+						<div class="panel panel-default">
+  							<div class="panel-heading">
+    							<h3 class="panel-title">Answer</h3>
+  							</div>
+  							<div class="panel-body">
+    							<div id="ac"></div>
+  							</div>
+						</div>
+					</div>
+
+				</div>
 			</div>
+			
 			<div id="score">
 				<div id="scoreCorrect"></div>
 				<div id="scoreIncorrect"></div>
 				<div id="scoreUnanswered"></div>
 			</div>
+		
 			<button id="start">Start Game</button>
-				
-				
-<!-- 				<div id="a1 a"></div>
- <div id="a2 a"></div>
- <div id="a3 a"></div>
-  --> 
+		</div>
+	</div>
 
 	<script type="text/javascript">
-
+		hideQuestions();
+		hideAnswer();
 		//I don't understand why I can't declare these on app.js
 		q = $("#q");
 		a0 = $("#a0");
